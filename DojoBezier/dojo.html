@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--[if gt IE 8]><!-->
+<html>
+<!--<![endif]-->
+
+	<head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <title>Dojo Bezier</title>
+	    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	    <!--  Mobile viewport scale | Disable user zooming as the layout is optimised -->
+	    <meta content="initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+	    
+	</head>
+
+	<body onload="draw();">
+
+		<canvas style="border-style: solid;" id="dojo" width="600" height="600"></canvas>
+	</body>
+
+	<script type="text/javascript">
+		function draw(){
+			var canvas = document.getElementById('dojo');
+
+			if (canvas.getContext){
+				var ctx = canvas.getContext('2d');
+				ctx.lineWidth = 4;
+
+				var P1 = {x: 100.0, y: 500.0};
+				var P2 = {x: 200.0, y: 250.0};
+				var P3 = {x: 400.0, y: 350.0};
+				var P4 = {x: 500.0, y: 100.0};
+
+				var PN12, PN23, PN13;
+				var div = 10;
+				var tam12 = {x: (P2.x - P1.x)/div, y: (P2.y - P1.y)/div};
+				var P12 = P1;
+
+				var tam23 = {x: (P3.x - P2.x)/div, y: (P3.y - P2.y)/div};
+				var P23 = P2;
+				var pBezAnt = P1;
+				for(var i = 0; i<div; i++){
+					PN12 = {x: P1.x + tam12.x*(i+1), y:P1.y +tam12.y*(i+1)};
+					PN23 = {x: P2.x + tam23.x*(i+1), y:P2.y +tam23.y*(i+1)};
+					var tam13 = {
+						x: (PN23.x - PN12.x)/div, 
+						y: (PN23.y - PN12.y)/div
+					};
+					
+					PN13 = {
+						x: PN12.x + tam13.x*(i+1), 
+						y: PN12.y +tam13.y*(i+1)
+					};
+					
+					ctx.beginPath();
+					ctx.moveTo(P12.x,P12.y);
+					ctx.lineTo(PN12.x, PN12.y);
+					ctx.moveTo(P23.x,P23.y);
+					ctx.lineTo(PN23.x, PN23.y);
+
+					ctx.moveTo(pBezAnt.x,pBezAnt.y);
+					ctx.lineTo(PN13.x, PN13.y);
+
+					if (i%2==0)
+						ctx.strokeStyle = '#ff0000';
+					else
+						ctx.strokeStyle = '#0000ff';
+					ctx.stroke();
+					P12 = PN12;
+					P23 = PN23;
+					pBezAnt = PN13;
+				}
+
+				
+
+				// ctx.beginPath();
+				// ctx.moveTo(Pmeio.x, Pmeio.y);
+				// ctx.lineTo(P2.x, P2.y);
+				// ctx.strokeStyle = '#0000ff';
+				// ctx.stroke();
+
+				ctx.beginPath();				
+				ctx.moveTo(P1.x,P1.y);
+				ctx.bezierCurveTo(P2.x,P2.y, P3.x,P3.y,  P4.x, P4.y)
+				ctx.strokeStyle = '#000000';
+				ctx.stroke();				
+
+			} else {
+			  window.alert('Sem Suporte');
+			}
+		}
+	</script>
+</html>
