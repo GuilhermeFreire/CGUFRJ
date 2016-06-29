@@ -30,15 +30,27 @@ const Cor_rgb& Material::Indice_especular()const
 
 Cor_rgb Material::getCorFromTexture(TexturePoint tp)const
 {
-        int x,y;
+        int x = tp.U()* textura.width();
+        float xp = tp.U()* textura.width() - x;
+        float xm = 1 - xp;
 
-        x = qRound(tp.U() * textura.width());
-        y = qRound(tp.V() * textura.height());
+        int y = tp.V()* textura.height();
+        float yp = tp.V()* textura.height() - y;
+        float ym = 1 - yp;
 
-        if(x >= textura.width())
-            x = textura.width()-1;
-        if(y >= textura.height())
-            y = textura.height()-1;
+        Cor_rgb pixel1 = textura.pixel(x, y);
+        Cor_rgb pixel2 = textura.pixel(x+1, y);
+        Cor_rgb pixel3 = textura.pixel(x, y+1);
+        Cor_rgb pixel4 = textura.pixel(x+1, y+1);
 
-        return textura.pixel(x, y);
+        pixel1.Multiplica(xm);
+        pixel2.Multiplica(xp);
+        pixel1.Soma(pixel2);
+        pixel3.Multiplica(xm);
+        pixel4.Multiplica(xp);
+        pixel3.Soma(pixel4);
+        pixel1.Multiplica(ym);
+        pixel3.Multiplica(yp);
+        pixel1.Soma(pixel3);
+        return pixel1;
 }

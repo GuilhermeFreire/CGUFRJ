@@ -23,8 +23,15 @@ Intersection PlanoY::Intercepta(const Raio& r_vis, IntersectionMode mode, float 
   return lastIntersection;
 }
 
+Vetor_3D PlanoY::normal( const Ponto_3D& ponto ) const
+{
+    return Vetor_3D(0,1,0);
+}
+
 TexturePoint PlanoY::pontoTextura(const Ponto_3D& ponto) const
 {
-    return TexturePoint( (ponto.X() - bmin)/(bmax-bmin) ,
-                         (ponto.Z() - cmin)/(cmax-cmin) );
+    float u = 0, v = 0;
+    u =  (ponto.X() - bmin)/(bmax - bmin);
+    v =  (ponto.Z() - cmin)/(cmax - cmin);
+    return TexturePoint( u,v );
 }

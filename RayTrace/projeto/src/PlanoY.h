@@ -14,7 +14,7 @@ class PlanoY : public Plano {
  //* interseção
     //float Intercepta( Raio r_vis )const;
     Intersection Intercepta(const Raio& r_vis, IntersectionMode mode, float threshold) ;
-    Vetor_3D normal( const Ponto_3D& ponto ) const { ponto.X(); return Vetor_3D(0,1,0); }
+   Vetor_3D normal( const Ponto_3D& ponto ) const;
     TexturePoint pontoTextura(const Ponto_3D& ponto) const;
 };
 

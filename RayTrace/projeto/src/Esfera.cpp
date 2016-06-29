@@ -56,5 +56,5 @@ TexturePoint Esfera::pontoTextura(const Ponto_3D& ponto) const
     phi  = acosf(tmp.Z());
     theta = acosf(tmp.X()/sin(phi));
 
-    return TexturePoint((phi/M_PI), ((theta)/M_PI));
+    return TexturePoint((phi/M_PI), ((theta)/(2*M_PI)));
 }

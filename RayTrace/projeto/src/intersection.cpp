@@ -52,7 +52,7 @@ const Objeto_3D* Intersection::getObject()const
 
 bool Intersection::hasPositiveIntersection(float threshold)const
 {
-    return m_object != (Objeto_3D*)0 && m_parametrizedDistance > threshold;
+    return m_object != (Objeto_3D*)0 && m_parametrizedDistance >= threshold;
 }
 
 const Intersection& Intersection::nearest(const Intersection& i1, const Intersection& i2, float threshold)
