@@ -1,2 +1,4 @@
 RayTrace/projeto/*.pro.user
 RayTrace/build-raytrace*
+ProcessamentoImagem/dojoProcessamento/*.pro.user
+ProcessamentoImagem/build-dojoProcessamento*
